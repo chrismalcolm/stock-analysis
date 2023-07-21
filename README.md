@@ -1,32 +1,48 @@
 # Stock Analysis
-A collection of scripts working with stock data.
+A collection of scripts for streaming and analysing **Stock Price Data**. Data is streamed concurrently using **Kafka** producers and consumers. There is also a **Flask** API with an endpoint to retrive stock price data from a **PostgreSQL** database. Stock price data is predicted using **Artificial Inteligence**. 
 
 ## Prerequisites
-**`python`**, **`docker`**
+**`python3`**, **`docker-compose`**
 
 ## Setup locally
 Setup python3 venv using the module versions listed in `requirements.txt`.
 
-Run PostgreSQL DB and Kafka Cluster locally.
+Run PostgreSQL DB and Kafka Cluster locally in the background.
 ```bash
 docker compose up -d
 ```
 
-Close down PostgreSQL DB and Kafka Cluster
+Close down PostgreSQL DB and Kafka Cluster and remove volumes.
 ```bash
 docker compose down -v
 ```
 
-## src
+Commands for each of the scripts that can be run.
+```bash
+# Run the Kafka producer
+python3 src/producer/main.py
 
-### **producer.py**
-A Kafka producer which use historical stock data from Yahoo Finance to publish as real-time stock data.
+# Run the Kafka consumer
+python3 src/consumer/main.py
 
-### **consumer.py**
-A Kafka consumer which subscribes to topics to receive real-time stock data events to save into a Postgres DB.
+# Run the Flask HTTP server
+python3 src/server/main.py
 
-### **server.py**
-A Flash HTTP server to handle requests for stock data which can be used for analysis or front-end client visuals.
+# Run the stock price predictions AI
+python3 src/prediction/main.py
+```
 
-### **predictions.py**
-Predict the closing stock price using the artficial recurrent neural network Long Short Term Memory (LSTM).
+## Docs
+Documentation for each script is linked below.
+
+### Producer
+link
+
+### Consumer
+link
+
+### Server
+link
+
+### Prediction
+link
