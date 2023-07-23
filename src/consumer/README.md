@@ -1,7 +1,7 @@
 # Consumer
 
 ## Summary
-```bash
+```
 python3 src/consumer/main.py -h
 
 usage: main.py [-h] symbols [symbols ...]

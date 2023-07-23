@@ -1,7 +1,7 @@
 # Server
 
 ## Summary
-```bash
+```
 python3 src/server/main.py -h
 
 usage: main.py [-h] [-H HOST] [-p PORT]

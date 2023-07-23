@@ -38,10 +38,10 @@ python3 src/prediction/main.py
 ## Docs
 Documentation for each script is linked below.
 
-* [Producer](https://github.com/chrismalcolm/stock-analysis/tree/main/src/producer)
+* [Producer](https://github.com/chrismalcolm/stock-analysis/tree/main/src/producer/README.md)
 
-* [Consumer](https://github.com/chrismalcolm/stock-analysis/tree/main/src/consumer)
+* [Consumer](https://github.com/chrismalcolm/stock-analysis/tree/main/src/consumer/README.md)
 
-* [Server](https://github.com/chrismalcolm/stock-analysis/tree/main/src/server)
+* [Server](https://github.com/chrismalcolm/stock-analysis/tree/main/src/server/README.md)
 
-* [Prediction](https://github.com/chrismalcolm/stock-analysis/tree/main/src/prediction)
+* [Prediction](https://github.com/chrismalcolm/stock-analysis/tree/main/src/prediction/README.md)

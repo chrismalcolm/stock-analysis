@@ -1,7 +1,7 @@
 # Prediction
 
 ## Summary
-```bash
+```
 python3 src/prediction/main.py -h
 
 usage: main.py [-h] symbol
