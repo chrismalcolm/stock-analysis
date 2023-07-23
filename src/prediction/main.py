@@ -1,20 +1,20 @@
-import numpy as np
+import argparse
 import matplotlib.pyplot as plt
 import math
+import numpy as np
 import pandas as pd
 import yfinance as yf
+
 from keras.layers import Dense, LSTM
 from keras.models import Sequential
 from sklearn.preprocessing import MinMaxScaler
 
-plt.style.use('fivethirtyeight')
 
-SYMBOL = "AAPL"
-
-def main():
+def main(symbol):
+    """Predict the closing stock price for the given stock symbol."""
 
     # Load 10 years worth of daily stock data
-    df = yf.download(tickers=SYMBOL, period="10y", interval="1d")
+    df = yf.download(tickers=symbol, period="10y", interval="1d")
     data = df.filter(['Close'])
     dataset = data.values
 
@@ -49,7 +49,7 @@ def main():
     predictions = scaler.inverse_transform(predictions)
 
     # Plot data against predictions
-    plot(data, predictions, training_data_len)
+    plot(symbol, data, predictions, training_data_len)
 
 def get_training_data(scaled_data, batch_size, training_data_len):
     training_data = scaled_data[0:training_data_len, :]
@@ -79,19 +79,35 @@ def build_model(batch_size):
     model.compile(optimizer='adam', loss='mean_squared_error')
     return model
 
-def plot(data, predictions, training_data_len):
+def plot(symbol, data, predictions, training_data_len):
     train = data[:training_data_len]
     valid = data[training_data_len:]
     valid.loc[:, ('Predictions')] = predictions
     
+    plt.style.use('fivethirtyeight')
     plt.figure(figsize=(16,8))
-    plt.title(f'Stock Price prediction ({SYMBOL})')
+    plt.title(f'Stock Price prediction ({symbol.upper()})')
     plt.xlabel('Date', fontsize=18)
     plt.ylabel('Close Price USD ($)', fontsize=18)
     plt.plot(train['Close'])
     plt.plot(valid[['Close', 'Predictions']])
-    plt.legend(['Train', 'Val', 'Predictions'], loc='lower right')
+    plt.legend(['Train', 'Actual', 'Predictions'], loc='lower right')
     plt.show()
 
 if __name__ == "__main__":
-    main()
+
+    # Parse arguments
+    parser = argparse.ArgumentParser(description="""
+        Predict the closing stock price using 
+        Artifical Inteligence, by using a recurrent 
+        neural network Long Short Term Memory (LSTM).
+    """)
+    parser.add_argument(
+        'symbol',
+        metavar='symbol',
+        type=str,
+        nargs=1,
+        help='stock symbol to predict stock price for',
+    )
+    args = parser.parse_args()
+    main(args.symbol[0])

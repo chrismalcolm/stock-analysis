@@ -1,7 +1,19 @@
 # Prediction
 
 ## Summary
+```bash
+python3 src/prediction/main.py -h
+
+usage: main.py [-h] symbol
+
 Predict the closing stock price using Artifical Inteligence, by using a recurrent neural network Long Short Term Memory (LSTM).
+
+positional arguments:
+  symbol      stock symbol to predict stock price for
+
+options:
+  -h, --help  show this help message and exit
+```
 
 ## Demo
 insert video here
@@ -21,4 +33,4 @@ insert video here
 
 * A **`Comparision Graph`** for the real stock price vs the predicted is created using the matplotlib module.
 
-* A ticker can be configured by changing the **`SYMBOL`** in the script.
+* Configure the stock to predict by changing the **`symbol`** argument.

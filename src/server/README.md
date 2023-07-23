@@ -1,13 +1,38 @@
 # Server
 
 ## Summary
-A Flash HTTP server to handle requests for stock data which can be used for analysis or front-end client visuals.
+```bash
+python3 src/server/main.py -h
+
+usage: main.py [-h] [-H HOST] [-p PORT]
+
+A Flash HTTP server to handle requests for
+stock data which can be used for analysis
+or front-end client visuals.
+
+options:
+  -h, --help          show this help
+                      message and exit
+  -H HOST, --host HOST
+                      host ip
+  -p PORT, --port PORT
+                      port of the API
+                      server
+```
 
 ## Demo
 insert video here
 
 ## How it works
-* The **`Flask HTTP server`**
+* This script runs **`Flask HTTP server`** on a specified or default host and port.
 
-* Once it reads this data, it saves the data to a **`PostgreSQL Database`** which can be used by the server.
+* It contains two endpoints **`GET /data`** and **`POST /data`**. Both can be used to return **`filtered`**  and **`aggregated`** 
+ stock price data from the **`PostgreSQL Database`**.
+
+* Data is filtered by specifying the **`symbols`** 
+, **`metrics`**, **`start`** and **`end`** parameters.
+
+* If 'timestamp' is present in the metrics, then **`timeseries`** data will be returned.
+
+* If 'timestamp' is not present in the metrics, then **`aggregated`** data will be returned.
 

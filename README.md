@@ -1,20 +1,23 @@
 # Stock Analysis
-A collection of scripts for streaming and analysing **Stock Price Data**. Data is streamed concurrently using **Kafka** producers and consumers. There is also a **Flask** API with an endpoint to retrive stock price data from a **PostgreSQL** database. Stock price data is predicted using **Artificial Inteligence**. 
+A collection of scripts for streaming and analysing **`Stock Price Data`**. Data is streamed concurrently using **`Kafka`** producers and consumers. There is also a **`Flask`** API with an endpoint to retrive stock price data from a **`PostgreSQL`** database. Stock price data is predicted using **`Artificial Inteligence`**. 
 
 ## Prerequisites
-**`python3`**, **`docker-compose`**
+**`python3`**, **`pip3`**, **`docker-compose`**
 
 ## Setup locally
-Setup python3 venv using the module versions listed in `requirements.txt`.
+Install required Python modules with correct versions.
+```bash
+pip3 install -r requirements.txt
+```
 
 Run PostgreSQL DB and Kafka Cluster locally in the background.
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
 Close down PostgreSQL DB and Kafka Cluster and remove volumes.
 ```bash
-docker compose down -v
+docker-compose down -v
 ```
 
 Commands for each of the scripts that can be run.
@@ -35,14 +38,10 @@ python3 src/prediction/main.py
 ## Docs
 Documentation for each script is linked below.
 
-### Producer
-link
+* [Producer](https://github.com/chrismalcolm/stock-analysis/tree/main/src/producer)
 
-### Consumer
-link
+* [Consumer](https://github.com/chrismalcolm/stock-analysis/tree/main/src/consumer)
 
-### Server
-link
+* [Server](https://github.com/chrismalcolm/stock-analysis/tree/main/src/server)
 
-### Prediction
-link
+* [Prediction](https://github.com/chrismalcolm/stock-analysis/tree/main/src/prediction)

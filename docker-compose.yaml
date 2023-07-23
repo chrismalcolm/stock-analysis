@@ -2,6 +2,7 @@ version: '3'
 services:
 
   zookeeper:
+    env_file: ./.env
     image: confluentinc/cp-zookeeper:6.2.0
     ports:
       - "2181:2181"
@@ -10,13 +11,14 @@ services:
       - ZOOKEEPER_TICK_TIME=2000
   
   kafka:
+    env_file: ./.env
     image: confluentinc/cp-kafka:6.2.0
     ports:
-      - 29092:29092
+      - ${KAFKA_SERV_PORT}:29092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://${KAFKA_SERV_ADDR}
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -24,13 +26,14 @@ services:
       - zookeeper
 
   db:
+    env_file: ./.env
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: yp
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - 54321:5432
+      - ${DB_PORT}:5432
     volumes: 
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql

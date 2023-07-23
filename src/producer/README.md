@@ -1,7 +1,20 @@
-# Consumer
+# Producer
 
 ## Summary
-A Kafka producer which use historical stock price data from Yahoo Finance to publish as real-time stock data.
+```
+python3 src/producer/main.py -h
+
+usage: main.py [-h] symbols [symbols ...]
+
+A Kafka producer which use historical stock price data
+from Yahoo Finance to publish as real-time stock data.
+
+positional arguments:
+  symbols     stock symbols to produce messages for
+
+options:
+  -h, --help  show this help message and exit
+```
 
 ## Demo
 insert video here
@@ -15,4 +28,4 @@ insert video here
 
 * Multiple producer can be run **`concurrently`**, each publishing data from different tickers.
 
-* Tickers can be configured by changing the **`SYMBOLS`** list in the script.
+* Configure the stocks to produce for by changing the **`symbols`** argument.

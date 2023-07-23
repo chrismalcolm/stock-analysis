@@ -1,19 +1,19 @@
+import argparse
 import concurrent.futures
 import json
 import time
+
+from dotenv import dotenv_values
+from kafka import KafkaProducer
 import pandas as pd
 import yfinance as yf
 
-from kafka import KafkaProducer
 
-SERV_ADDR = "localhost:29092"
-SYMBOLS = ["MSFT", "AAPL"]
-
-# Kafka producer to be used as a context manager to stream stock data
 class Producer:
+    """Kafka producer to send stock price data."""
 
-    def __init__(self, serv_addr, topic, symbol):
-        self.serv_addr = serv_addr
+    def __init__(self, config, topic, symbol):
+        self.serv_addr = config["KAFKA_SERV_ADDR"]
         self.topic = topic
         self.symbol = symbol
         self._producer = None
@@ -27,17 +27,17 @@ class Producer:
         # Close the Kafka producer
         self._producer.close()
 
-    # Load the stock data and publish messages
     def run(self):
+        """Produce messages to a Kafka topic."""
 
         # Raise an Expection if self._producer is not initialised
-        if not self._producer:
+        if self._producer is None:
             raise Exception("Producer has not been initialised")
 
         try:
             # Download and save 5 days worth of minute stock data
             # into a data frame
-            self._print(f"({self.symbol}) Downloading stock data for {self.symbol}")
+            self._log("Downloading stock data")
             df = yf.download(tickers=self.symbol, period="1d", interval="1m")
 
             # Insert column for timestamp into data
@@ -49,34 +49,74 @@ class Producer:
             self._stream(df)
         
         except Exception as exc:
-            self._print(f"({self.symbol}) Error: {exc}")
+            self._log(f"Error: {exc}")
             raise exc
 
     def _stream(self, df):
-        self._print(f"({self.symbol}) Streaming data")
+        """Publish data from the given dataframe to a Kafka topic."""
+        self._log(f"({self.symbol}) Streaming data")
         for _, row in df.iterrows():
             message = json.dumps(list(row.values))
             self._publish(message)
             time.sleep(1)
 
     def _publish(self, message):
+        """Publish Kafka message to a topic."""
         self._producer.send(self.topic, message.encode('utf-8'))
-        self._print(f"({self.symbol}) Published: {message}")
+        self._log(f"({self.symbol}) Published: {message}")
 
-    def _print(self, text):
+    def _log(self, text):
+        """Print a message."""
         print(f"({self.symbol}) {text}")
 
-# Stream data for the given ticker
-def stream_data(symbol):
+def stream_data(config, symbol):
+    """Runs a Kafka producer for the given stock symbol."""
     topic = f"stock_data_{symbol.lower()}"
-    with Producer(serv_addr=SERV_ADDR, topic=topic, symbol=symbol) as producer:
+    with Producer(config, topic=topic, symbol=symbol) as producer:
         producer.run()
 
-def main():
+def main(config):
+    """
+        Runs a Kafka producer for each stock symbol.
+        Each producer is run concurrently in a separate thread.
+
+        Args:
+            config (dict): Config dictionary, must contain the
+                folling values:
+                > SYMBOLS (list): List of stock symbols
+                > KAFKA_SERV_ADDR (str): Kafka server address
+
+        Returns:
+            None
+
+        Raises:
+            Exception: Raised with any unexpected error.
+    """
+    symbols = [symbol.upper() for symbol in config["SYMBOLS"]]
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        futures = {executor.submit(stream_data, sym): sym for sym in SYMBOLS}
+        futures = {executor.submit(stream_data, config, symbol): symbol for symbol in symbols}
         for future in concurrent.futures.as_completed(futures):
             future.result()
 
 if __name__ == "__main__":
-    main()
+    
+    # Parse arguments
+    parser = argparse.ArgumentParser(description="""
+        A Kafka producer which use historical stock price data 
+        from Yahoo Finance to publish as real-time stock data.
+    """)
+    parser.add_argument(
+        'symbols',
+        metavar='symbols',
+        type=str,
+        nargs='+',
+        help='stock symbols to produce messages for',
+    )
+    args = parser.parse_args()
+
+    # Get .env config
+    config = dotenv_values(".env")
+    config["SYMBOLS"] = args.symbols
+
+    # Run main function
+    main(config)
