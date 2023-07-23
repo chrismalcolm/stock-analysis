@@ -17,7 +17,7 @@ options:
 ```
 
 ## Demo
-insert video here
+https://github.com/chrismalcolm/stock-analysis/assets/43220741/1fa82581-5797-4f56-84c7-939c4a8f1613
 
 ## How it works
 * This script creates a **`Producer`** class which is able to publish JSON messages of stock price data to a Kafka topic.
