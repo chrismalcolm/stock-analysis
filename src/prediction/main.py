@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # Parse arguments
     parser = argparse.ArgumentParser(description="""
         Predict the closing stock price using 
-        Artifical Inteligence, by using a recurrent 
+        Artifical Intelligence, by using a recurrent 
         neural network Long Short Term Memory (LSTM).
     """)
     parser.add_argument(

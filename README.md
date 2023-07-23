@@ -1,5 +1,5 @@
 # Stock Analysis
-A collection of scripts for streaming and analysing **`Stock Price Data`**. Data is streamed concurrently using **`Kafka`** producers and consumers. There is also a **`Flask`** API with an endpoint to retrive stock price data from a **`PostgreSQL`** database. Stock price data is predicted using **`Artificial Inteligence`**. 
+A collection of scripts for streaming and analysing **`Stock Price Data`**. Data is streamed concurrently using **`Kafka`** producers and consumers. There is also a **`Flask`** API with an endpoint to retrive stock price data from a **`PostgreSQL`** database. Stock price data is predicted using **`Artificial Intelligence`**. 
 
 <img width="1485" alt="Screenshot 2023-07-23 at 17 48 55" src="https://github.com/chrismalcolm/stock-analysis/assets/43220741/99d4bd92-f023-4fc5-807e-ece72b6857ef">
 

@@ -6,7 +6,7 @@ python3 src/prediction/main.py -h
 
 usage: main.py [-h] symbol
 
-Predict the closing stock price using Artifical Inteligence, by using a recurrent neural network Long Short Term Memory (LSTM).
+Predict the closing stock price using Artifical Intelligence, by using a recurrent neural network Long Short Term Memory (LSTM).
 
 positional arguments:
   symbol      stock symbol to predict stock price for
