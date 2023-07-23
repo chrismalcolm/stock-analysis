@@ -21,7 +21,7 @@ options:
 ```
 
 ## Demo
-insert video here
+https://github.com/chrismalcolm/stock-analysis/assets/43220741/a66019b1-4990-47ac-9db3-05ee25108d86
 
 ## How it works
 * This script runs **`Flask HTTP server`** on a specified or default host and port.
