@@ -15,8 +15,12 @@ options:
   -h, --help  show this help message and exit
 ```
 
-## Demo
-insert video here
+## Screenshots
+Running script:
+<img width="1792" alt="Screenshot 2023-07-23 at 16 39 07" src="https://github.com/chrismalcolm/stock-analysis/assets/43220741/ed4987fa-97bd-46f1-bac2-5a4f8f17083e">
+
+Output:
+<img width="1792" alt="Screenshot 2023-07-23 at 16 39 35" src="https://github.com/chrismalcolm/stock-analysis/assets/43220741/85150594-4e63-4de6-99a7-c7c62ec74667">
 
 ## How it works
 * It collects the 10 years worth of stock price data from **`Yahoo Finance`** using the yfinance module.
