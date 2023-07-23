@@ -86,12 +86,12 @@ def plot(symbol, data, predictions, training_data_len):
     
     plt.style.use('fivethirtyeight')
     plt.figure(figsize=(16,8))
-    plt.title(f'Stock Price prediction ({symbol.upper()})')
+    plt.title(f'Stock Price Prediction ({symbol.upper()})')
     plt.xlabel('Date', fontsize=18)
     plt.ylabel('Close Price USD ($)', fontsize=18)
     plt.plot(train['Close'])
     plt.plot(valid[['Close', 'Predictions']])
-    plt.legend(['Train', 'Actual', 'Predictions'], loc='lower right')
+    plt.legend(['Train', 'Actual', 'AI Predictions'], loc='lower right')
     plt.show()
 
 if __name__ == "__main__":

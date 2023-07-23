@@ -38,7 +38,7 @@ class Producer:
             # Download and save 5 days worth of minute stock data
             # into a data frame
             self._log("Downloading stock data")
-            df = yf.download(tickers=self.symbol, period="1d", interval="1m")
+            df = yf.download(tickers=self.symbol, period="5d", interval="1m")
 
             # Insert column for timestamp into data
             start = int(time.time())

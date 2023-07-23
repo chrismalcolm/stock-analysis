@@ -16,7 +16,7 @@ options:
 ```
 
 ## Demo
-insert video here
+https://github.com/chrismalcolm/stock-analysis/assets/43220741/1fa82581-5797-4f56-84c7-939c4a8f1613
 
 ## How it works
 * This script creates a **`Consumer`** class which is able to subscribe to a Kafka topic to recieve JSON messages for stock price data.
